@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>和文モールス練習</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+    <!-- 共通モールス表示エリア -->
+
+    <div id="morseArea">
+
+        <div id="signal"></div>
+
+    </div>
+
+    <div id="topScreen" class="screen">
+
+        <div class="topArea">
+
+            <h1 class="screenTitle">
+                和文モールス練習
+            </h1>
+
+            <button
+                id="settingsButton"
+                class="gearButton">
+                ⚙
+            </button>
+
+        </div>
+
+        <div class="centerArea">
+
+            <button
+                onclick="showScreen('practiceScreen')">
+
+                練習形式
+
+            </button>
+
+            <button
+                onclick="showScreen('examScreen')">
+
+                本番形式
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="practiceScreen"
+        class="screen"
+        style="display:none;">
+
+        <!-- 上部 -->
+
+        <div class="topArea">
+
+            <button
+                class="topButton"
+                onclick="returnToTop()">
+
+                ← トップ
+
+            </button>
+
+            <h1 class="screenTitle">
+                練習形式
+            </h1>
+
+            <button
+                class="gearButton"
+                onclick="openPracticeSettings()">
+
+                ⚙
+
+            </button>
+
+        </div>
+
+        <!-- 中央 -->
+
+        <div class="centerArea">
+
+            <div id="countdown"></div>
+
+            <div id="displayArea">
+
+                <pre id="answerArea"></pre>
+
+            </div>
+
+            <pre id="resultArea"></pre>
+
+        </div>
+
+        <!-- 下部 -->
+
+        <div class="bottomArea">
+
+            <div class="middleButtons">
+
+                <button
+                    id="showOneAnswerButton"
+                    style="display:none;">
+
+                    答えを表示
+
+                </button>
+
+                <button
+                    id="nextButton"
+                    style="display:none;">
+
+                    次へ
+
+                </button>
+
+                <button
+                    id="showAnswerButton"
+                    onclick="showAnswers()"
+                    style="display:none;">
+
+                    答えを表示
+
+                </button>
+
+                <button
+                    id="retryButton"
+                    onclick="startPractice()"
+                    style="display:none;">
+
+                    もう一度
+
+                </button>
+
+            </div>
+
+            <div class="bottomButtons">
+
+                <button
+                    id="startButton"
+                    onclick="startPractice()">
+
+                    開始
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="practiceSettingScreen"
+        class="screen"
+        style="display:none;">
+
+        <!-- 上部 -->
+
+        <div class="topArea">
+
+            <h1 class="screenTitle">
+                練習設定
+            </h1>
+
+        </div>
+
+        <!-- 中央 -->
+
+        <div class="centerArea">
+
+            <label>
+
+                <input
+                    id="showAnswerEachQuestion"
+                    type="checkbox">
+
+                問題ごとに答えを表示
+
+            </label>
+
+        </div>
+
+        <!-- 下部 -->
+
+        <div class="bottomArea">
+
+            <div class="bottomButtons">
+
+                <button
+                    onclick="savePracticeSettings()">
+
+                    保存
+
+                </button>
+
+                <button
+                    onclick="showScreen('practiceScreen')">
+
+                    戻る
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="examScreen"
+        class="screen"
+        style="display:none;">
+
+        <!-- 上部 -->
+
+        <div class="topArea">
+
+            <button
+                class="topButton"
+                onclick="returnToTop()">
+
+                ← トップ
+
+            </button>
+
+            <h1 class="screenTitle">
+                本番形式
+            </h1>
+
+            <button
+                class="gearButton"
+                onclick="openExamSettings()">
+
+                ⚙
+
+            </button>
+
+        </div>
+
+        <!-- 中央 -->
+
+        <div class="centerArea">
+
+            <div id="examCountdown"></div>
+
+            <div id="examDisplayArea"></div>
+
+            <pre id="examResultArea"></pre>
+
+            <button
+                id="retryExamBtn"
+                onclick="restartExam()"
+                style="display:none;">
+
+                もう一度
+
+            </button>
+
+        </div>
+
+        <!-- 下部 -->
+
+        <div class="bottomArea">
+
+            <div class="bottomButtons">
+
+                <button
+                    id="examStartButton"
+                    onclick="startExam()">
+
+                    開始
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="examSettingScreen"
+        class="screen"
+        style="display:none;">
+
+        <p>
+        ～テスト中～
+        現在は共通設定を使用します。
+        </p>
+
+        <div class="topArea">
+
+            <button
+                class="topButton"
+                onclick="showScreen('examScreen')">
+
+                ← 戻る
+
+            </button>
+
+            <h1 class="screenTitle">
+                本番設定
+            </h1>
+
+        </div>
+
+        <div class="centerArea settingsArea">
+
+            <label>
+                問題数
+            </label>
+
+            <input
+                id="examQuestionCount"
+                type="number"
+                min="1">
+
+            <label>
+                出題文字
+            </label>
+
+            <input
+                id="examQuestionChars"
+                type="text">
+
+            <label>
+
+                <input
+                    id="examAllowDuplicate"
+                    type="checkbox">
+
+                重複あり
+
+            </label>
+
+        </div>
+
+        <div class="bottomArea">
+
+            <button
+                onclick="saveExamSettings()">
+
+                保存
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="settingScreen"
+        class="screen"
+        style="display:none;">
+
+        <div class="topArea">
+
+            <h1 class="screenTitle">
+                設定
+            </h1>
+
+        </div>
+
+        <div class="centerArea settingsArea">
+
+            <h2>出題設定</h2>
+
+            <div class="settingGroup">
+
+                <label>
+                    問題数
+                </label>
+
+                <input
+                    id="questionCount"
+                    type="number"
+                    min="1">
+
+                <label>
+
+                    <input
+                        id="allowDuplicate"
+                        type="checkbox">
+
+                    重複あり
+
+                </label>
+
+            </div>
+
+            <h2>出題範囲</h2>
+
+            <div class="settingGroup">
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="charSelectMode"
+                        value="manual">
+
+                    文字指定
+
+                </label>
+
+                <div id="manualFields">
+                    <label>
+                        出題文字
+                    </label>
+
+                    <input
+                        id="questionChars"
+                        type="text">
+                </div>
+                <label>
+
+                    <input
+                        type="radio"
+                        name="charSelectMode"
+                        value="all">
+
+                    全範囲
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="charSelectMode"
+                        value="range">
+
+                    範囲指定
+
+                </label>
+
+                <div id="rangeFields">
+
+                    <label>
+                        開始文字
+                    </label>
+
+                    <input
+                        id="startChar"
+                        type="text"
+                        maxlength="1">
+
+                    <label>
+                        終了文字
+                    </label>
+
+                    <input
+                        id="endChar"
+                        type="text"
+                        maxlength="1">
+
+                </div>
+                <label>
+
+                    <input
+                        type="radio"
+                        name="charSelectMode"
+                        value="morse">
+
+                    モールス指定
+
+                </label>
+
+                <div id="morseFields">
+
+                    <label>
+                        モールス先頭
+                    </label>
+
+                    <input
+                        id="morsePrefix"
+                        type="text">
+
+                </div>                
+                
+            </div>
+
+            <h2>速度設定</h2>
+
+            <div class="settingGroup">
+
+                <label>
+                    短音長さ(ms)
+                </label>
+
+                <input
+                    id="unitTimeInput"
+                    type="number"
+                    min="10">
+
+                <label>
+                    問題間隔(ms)
+                </label>
+
+                <input
+                    id="questionGapInput"
+                    type="number"
+                    min="100">
+
+            </div>
+
+            <h2>出力設定</h2>
+
+            <div class="settingGroup">
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="signalMode"
+                        value="both">
+
+                    モールス＋beep
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="signalMode"
+                        value="visual">
+
+                    モールスのみ
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="signalMode"
+                        value="audio">
+
+                    beepのみ
+
+                </label>
+
+            </div>
+
+        </div>
+
+        <div class="bottomArea">
+
+            <div class="bottomButtons">
+
+                <button onclick="saveSettingScreen()">
+                    保存
+                </button>
+
+                <button onclick="showScreen('topScreen')">
+                    トップへ戻る
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

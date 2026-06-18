@@ -1,0 +1,486 @@
+/* =========================
+   全体
+========================= */
+
+body{
+
+    margin:0;
+
+    background:black;
+
+    color:white;
+
+    font-family:sans-serif;
+
+    overflow:hidden;
+}
+
+/* =========================
+   画面構造
+========================= */
+.topArea{
+    background:black;
+
+    z-index:100;
+
+    width:100%;
+
+    height:80px;
+
+    position:relative;
+
+    flex-shrink:0;
+}
+
+.screenTitle{
+
+    margin:20px 0 0 0;
+
+    text-align:center;
+
+    z-index:1;
+}
+
+.screen{
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    background:black;
+
+    color:white;
+
+    position:relative;
+}
+
+.centerArea{
+
+    flex:1;
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transform:translateY(-40px);
+}
+
+#topScreen .centerArea{
+
+    gap:30px;
+}
+
+#settingScreen .centerArea{
+
+    gap:15px;
+}
+
+input[type="number"],
+input[type="text"]{
+
+    width:250px;
+
+    height:40px;
+
+    font-size:20px;
+}
+
+#practiceSettingScreen .centerArea{
+
+    gap:20px;
+
+    font-size:24px;
+}
+
+.bottomArea{
+
+    width:100%;
+
+    padding-bottom:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:20px;
+
+    flex-shrink:0;
+}
+
+#examDisplayArea{
+
+    width:200px;
+
+    height:80px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+#examCountdown{
+
+    height:80px;
+
+    font-size:48px;
+
+    font-weight:bold;
+
+    color:yellow;
+
+    text-align:center;
+
+    margin-bottom:250px;
+}
+
+/* =========================
+   ボタン共通
+========================= */
+
+button{
+
+    width:180px;
+
+    height:50px;
+
+    font-size:20px;
+}
+
+.topButton{
+
+    position:absolute;
+
+    top:20px;
+
+    left:20px;
+
+    z-index:10;
+
+    width:100px;
+
+    height:50px;
+
+    font-size:18px;
+}
+
+.middleButtons{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin-top:30px;
+}
+
+.bottomButtons{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+.gearButton{
+
+    position:absolute;
+
+    top:20px;
+
+    right:20px;
+
+    width:50px;
+
+    height:50px;
+
+    padding:0;
+
+    font-size:32px;
+
+    line-height:1;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:10;
+}
+
+/* =========================
+   画面タイトル
+========================= */
+
+.screenTitle{
+
+    position:absolute;
+
+    top:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    margin:0;
+}
+
+/* =========================
+   モールス表示
+========================= */
+#morseArea{
+
+    display:none;
+
+    position:fixed;
+
+    top:50%;
+
+    left:50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index:1000;
+
+}
+
+#signal{
+
+    width:200px;
+
+    height:200px;
+
+    border-radius:50%;
+
+    background:#444;
+
+    margin:auto;
+}
+
+#displayArea{
+
+    width:250px;
+
+    height:250px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+#signal.on{
+
+    background:yellow !important;
+
+    box-shadow:
+        0 0 20px yellow,
+        0 0 40px yellow;
+}
+
+/* =========================
+   カウントダウン
+========================= */
+
+#countdown{
+
+    height:80px;
+
+    font-size:48px;
+
+    font-weight:bold;
+
+    color:yellow;
+
+    text-align:center;
+
+    margin-bottom:20px;
+}
+/* =========================
+   解答表示
+========================= */
+
+#answerArea{
+
+    display:none;
+
+    width:200px;
+
+    height:200px;
+
+    margin:0;
+
+    font-size:80px;
+
+    font-weight:bold;
+
+    color:white;
+
+    text-align:center;
+
+}
+#resultArea{
+
+    display:none;
+
+    white-space:pre-line;
+
+    font-size:32px;
+
+    text-align:center;
+
+    margin-top:20px;
+
+    width:90%;
+
+    max-width: 500px;
+
+    max-height:500px;
+
+    overflow-y:auto;
+
+    transform:translateY(-250px) ;
+
+}
+
+#examResultArea{
+
+    display:none;
+
+    white-space:pre-line;
+
+    font-size:32px;
+
+    text-align:center;
+
+    margin-top:20px;
+
+    width:90%;
+
+    max-width: 500px;
+
+    max-height:500px;
+
+    overflow-y:auto;
+
+    transform:translateY(-250px) ;
+}
+/* =========================
+   設定画面
+========================= */
+.settingsArea{
+
+    flex:1;
+
+    justify-content:flex-start;
+
+    padding:40px 20px 20px 20px;
+
+    overflow-y:auto;
+
+    align-items:center;
+
+}
+.settingsArea input[type="text"],
+.settingsArea input[type="number"]{
+
+    width:200px;
+    margin:0 auto;
+    display:block;
+
+}
+
+#morsePrefix{
+
+    font-size:32px;
+
+    text-align:center;
+}
+
+.settingsArea label{
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:10px;
+
+}
+
+.settingGroup{
+
+    width:260px;
+
+    margin-bottom:25px;
+
+    padding:15px;
+
+    border:1px solid #555;
+
+    border-radius:10px;
+
+}
+
+.settingsArea h2{
+
+    margin:20px 0 10px 0;
+
+    text-align:center;
+
+}
+
+
+/* =========================
+   スマホ表示
+========================= */
+
+@media (max-width:768px){
+
+    .bottomButtons{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        width:80%;
+
+    }
+
+    .middleButtons{
+
+        flex-direction:column;
+
+        align-items:center;
+
+        width:80%;
+    }
+
+}
