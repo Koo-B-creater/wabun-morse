@@ -32,7 +32,7 @@ const SETTINGS = {
 
     allowDuplicate : false,
 
-    charSelectMode : "manual",
+    charSelectMode : "morse",
 
     morsePrefix : ".",
 
