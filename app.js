@@ -1010,6 +1010,14 @@ async function startExam(){
     examAnswers = [];
 
     document
+        .getElementById("examCountdown")
+        .style.display = "block";
+    
+    document
+        .getElementById("examDisplayArea")
+        .style.display = "flex";
+
+    document
         .getElementById("examStartButton")
         .style.display = "none";
 
@@ -1041,6 +1049,13 @@ async function restartExam(){
 
     }
 
+    document
+        .getElementById("examCountdown")
+        .style.display = "block";
+    
+    document
+        .getElementById("examDisplayArea")
+        .style.display = "flex";    
     document
         .getElementById(
             "retryExamBtn"
@@ -1188,6 +1203,14 @@ async function runExam(){
 }
 
 function showExamResult(){
+    
+    document
+        .getElementById("examCountdown")
+        .style.display = "none";
+    
+    document
+        .getElementById("examDisplayArea")
+        .style.display = "none";
 
     let text = "";
 
@@ -1457,5 +1480,13 @@ function returnToTop(){
     document.getElementById("morseArea")
             .style.display="none";
 
+    document
+        .getElementById("examCountdown")
+        .style.display = "block";
+    
+    document
+        .getElementById("examDisplayArea")
+        .style.display = "flex";    
+    
     showScreen("topScreen");
 }
