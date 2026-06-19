@@ -11,7 +11,7 @@ body{
     color:white;
 
     font-family:sans-serif;
-
+    
     overflow:hidden;
 }
 
@@ -43,7 +43,7 @@ body{
 
 .screen{
 
-    min-height:100dvh;
+    height:100dvh;
 
     display:flex;
 
@@ -56,9 +56,6 @@ body{
     color:white;
 
     position:relative;
-
-    overflow-y:auto;
-
 }
 
 .centerArea{
@@ -74,18 +71,18 @@ body{
     justify-content:center;
 
     align-items:center;
-
-    transform:translateY(-40px);
 }
 
 #topScreen .centerArea{
 
     gap:30px;
+    transform:translateY(-40px);
 }
 
 #settingScreen .centerArea{
 
     gap:15px;
+    transform:translateY(-40px);
 }
 
 input[type="number"],
@@ -103,6 +100,8 @@ input[type="text"]{
     gap:20px;
 
     font-size:24px;
+
+    transform:translateY(-40px);
 }
 
 .bottomArea{
@@ -401,6 +400,8 @@ button{
 
     flex:1;
 
+    min-height:0;
+
     justify-content:flex-start;
 
     padding:40px 20px 20px 20px;
@@ -457,7 +458,6 @@ button{
     text-align:center;
 
 }
-
 
 /* =========================
    スマホ表示
