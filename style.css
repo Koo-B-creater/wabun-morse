@@ -402,6 +402,8 @@ button{
 
     min-height:0;
 
+    display:flex;
+
     justify-content:flex-start;
 
     padding:40px 20px 20px 20px;
