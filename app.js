@@ -671,6 +671,14 @@ async function startPractice(){
     isRunning = true;
 
     document
+        .getElementById("countdown")
+        .style.display = "block";
+
+    document
+        .getElementById("displayArea")
+        .style.display = "flex";
+
+    document
         .getElementById("startButton")
         .style.display = "none";
 
@@ -755,6 +763,14 @@ function showAnswers(){
 
     document
         .getElementById("signal")
+        .style.display = "none";
+
+    document
+        .getElementById("countdown")
+        .style.display = "none";
+
+    document
+        .getElementById("displayArea")
         .style.display = "none";
 
     document
@@ -1362,6 +1378,14 @@ function returnToTop(){
     isRunning = false;
 
     answers = [];
+
+    document
+        .getElementById("countdown")
+        .style.display = "block";
+
+    document
+        .getElementById("displayArea")
+        .style.display = "flex";
 
     document
         .getElementById("countdown")
