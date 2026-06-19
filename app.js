@@ -1,3 +1,9 @@
+const APP_VERSION =
+    "0.3.2";
+
+const RELEASE_DATE =
+    "2026/06/19";
+
 // ==================================================
 // グローバル変数
 // ==================================================
@@ -1510,3 +1516,8 @@ function returnToTop(){
     
     showScreen("topScreen");
 }
+
+document
+    .getElementById("versionLabel")
+    .innerHTML =
+    `Ver ${APP_VERSION}<br>${RELEASE_DATE}`;
