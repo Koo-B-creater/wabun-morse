@@ -393,6 +393,23 @@ button{
 
     overflow-y:auto;
 }
+
+#versionLabel{
+
+    position:absolute;
+
+    left:15px;
+
+    bottom:15px;
+
+    font-size:14px;
+
+    color:#888;
+
+    line-height:1.4;
+
+    text-align:left;
+}
 /* =========================
    設定画面
 ========================= */
