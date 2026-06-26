@@ -7,6 +7,19 @@ const RELEASE_DATE =
 const CHANGE_LOG = [
 
     {
+        version : "0.3.4",
+        date : "2026/06/26",
+        changes : [
+            "モールス辞典を追加",
+            "ひらがな・数字・記号をアコーディオン表示",
+            "文字選択時に詳細ポップアップを表示",
+            "辞典専用モールス円を追加",
+            "モールス再生をポップアップ内へ移行",
+            "スマホ向けに辞典レイアウトを最適化"
+        ]
+    },
+
+    {
         version : "0.3.3",
         date : "2026/06/26",
         changes : [
@@ -205,6 +218,40 @@ const MORSE = {
     "ー":".--.-"
 
 };
+const DICTIONARY_GROUPS = [
+
+    {
+        title : "ひらがな",
+        rows : [
+            { title:"ア行", chars:["ア","イ","ウ","エ","オ"] },
+            { title:"カ行", chars:["カ","キ","ク","ケ","コ"] },
+            { title:"サ行", chars:["サ","シ","ス","セ","ソ"] },
+            { title:"タ行", chars:["タ","チ","ツ","テ","ト"] },
+            { title:"ナ行", chars:["ナ","ニ","ヌ","ネ","ノ"] },
+            { title:"ハ行", chars:["ハ","ヒ","フ","ヘ","ホ"] },
+            { title:"マ行", chars:["マ","ミ","ム","メ","モ"] },
+            { title:"ヤ行", chars:["ヤ","ユ","ヨ"] },
+            { title:"ラ行", chars:["ラ","リ","ル","レ","ロ"] },
+            { title:"ワ行", chars:["ワ","ヰ","ヱ","ヲ","ン"] },
+            { title:"濁点・半濁点", chars:["゛","゜"] }
+        ]
+    },
+
+    {
+        title : "数字",
+        rows : [
+            { title:"数字", chars:["0","1","2","3","4","5","6","7","8","9"] }
+        ]
+    },
+
+    {
+        title : "記号",
+        rows : [
+            { title:"記号", chars:["ー"] }
+        ]
+    }
+
+];
 
 function getShadowText(char){
 
@@ -385,6 +432,268 @@ function openHistory(){
     showScreen(
         "historyScreen"
     );
+}
+
+function openDictionary(){
+
+    const area =
+        document.getElementById(
+            "dictionaryArea"
+        );
+
+    let html = "";
+
+    DICTIONARY_GROUPS.forEach(group => {
+
+        html +=
+            `<details class="dictionaryItem">
+
+                <summary class="dictionaryTitle">
+                    ${group.title}
+                </summary>`;
+
+        group.rows.forEach(row => {
+
+            html +=
+                `<div class="dictionaryGroupTitle">
+                    ${row.title}
+                </div>
+
+                <div class="dictionaryButtonGrid">`;
+
+            row.chars.forEach(char => {
+
+                if(MORSE[char]){
+
+                    html +=
+                        `<button
+                            class="dictionaryCharButton"
+                            data-char="${char}">
+                            ${char}
+                        </button>`;
+                }
+
+            });
+
+            html +=
+                `</div>`;
+        });
+
+        html +=
+            `</details>`;
+    });
+
+    area.innerHTML = html;
+
+    document
+        .querySelectorAll(
+            ".dictionaryCharButton"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    openDictionaryPopup(
+                        button.dataset.char
+                    );
+                }
+            );
+
+        });
+
+    showScreen(
+        "dictionaryScreen"
+    );
+}
+
+function openDictionaryPopup(char){
+
+    dictionaryCurrentChar =
+        char;
+
+    const overlay =
+        document.getElementById(
+            "dictionaryOverlay"
+        );
+
+    document
+        .getElementById(
+            "dictionaryPopupChar"
+        )
+        .textContent =
+        char;
+
+    document
+        .getElementById(
+            "dictionaryPopupCode"
+        )
+        .textContent =
+        MORSE[char];
+
+    const shadow =
+        getShadowText(char);
+
+    document
+        .getElementById(
+            "dictionaryPopupShadow"
+        )
+        .innerHTML =
+        shadow.slice(0,-1)
+        + "<span class='dictionaryFinalChar'>"
+        + shadow.slice(-1)
+        + "</span>";
+
+    const playButton =
+        document.getElementById(
+            "dictionaryPlayButton"
+        );
+
+    if(playButton){
+
+        playButton.disabled =
+            false;
+    }
+
+    overlay.style.display =
+        "flex";
+}
+async function playDictionaryChar(){
+
+    if(
+        dictionaryCurrentChar === ""
+    ){
+
+        return;
+    }
+
+    const playButton =
+        document.getElementById(
+            "dictionaryPlayButton"
+        );
+
+    playButton.disabled =
+        true;
+
+    isRunning =
+        true;
+
+    await playDictionaryMorse(
+        MORSE[dictionaryCurrentChar]
+    );
+
+    isRunning =
+        false;
+
+    playButton.disabled =
+        false;
+}
+async function playDictionaryMorse(code){
+
+    const signal =
+        document.getElementById(
+            "dictionarySignal"
+        );
+
+    for(
+        let i = 0;
+        i < code.length;
+        i++
+    ){
+
+        if(!isRunning){
+
+            signal.classList.remove(
+                "on"
+            );
+
+            return;
+        }
+
+        const c =
+            code[i];
+
+        const osc =
+            SETTINGS.signalMode !== "visual"
+            ? startBeep()
+            : null;
+
+        if(
+            SETTINGS.signalMode !== "audio"
+        ){
+
+            signal.classList.add(
+                "on"
+            );
+        }
+
+        if(c === "."){
+
+            await sleep(
+                SETTINGS.unitTime
+            );
+
+        }else{
+
+            await sleep(
+                SETTINGS.unitTime * 3
+            );
+        }
+
+        stopBeep(osc);
+
+        signal.classList.remove(
+            "on"
+        );
+
+        await sleep(
+            SETTINGS.unitTime
+        );
+    }
+}
+function closeDictionaryPopup(){
+
+    isRunning = false;
+
+    dictionaryCurrentChar =
+        "";
+
+    document
+        .getElementById(
+            "dictionaryOverlay"
+        )
+        .style.display =
+        "none";
+
+    document
+        .getElementById(
+            "dictionaryPopupChar"
+        )
+        .textContent =
+        "";
+
+    document
+        .getElementById(
+            "dictionaryPopupCode"
+        )
+        .textContent =
+        "";
+
+    document
+        .getElementById(
+            "dictionaryPopupShadow"
+        )
+        .textContent =
+        "";
+
+    document
+        .getElementById(
+            "dictionarySignal"
+        )
+        .classList.remove(
+            "on"
+        );
 }
 // ==================================================
 // 音と光
@@ -1707,6 +2016,28 @@ retryExamBtn.addEventListener(
 );
 
 document
+    .getElementById(
+        "dictionaryOverlay"
+    )
+    .addEventListener(
+        "click",
+        closeDictionaryPopup
+    );
+
+document
+    .getElementById(
+        "dictionaryPopup"
+    )
+    .addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+        }
+    );
+
+document
     .querySelectorAll(
         'input[name="charSelectMode"]'
     )
@@ -1832,7 +2163,9 @@ function returnToTop(){
     
     document
         .getElementById("examDisplayArea")
-        .style.display = "flex";    
+        .style.display = "flex";  
+
+    closeDictionaryPopup();  
     
     showScreen("topScreen");
 }
