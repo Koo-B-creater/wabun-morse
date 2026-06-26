@@ -1,8 +1,81 @@
 const APP_VERSION =
-    "0.4.0";
+    "0.3.3";
 
 const RELEASE_DATE =
-    "2026/06/21";
+    "2026/06/26";
+
+const CHANGE_LOG = [
+
+    {
+        version : "0.3.3",
+        date : "2026/06/26",
+        changes : [
+            "更新履歴画面を追加",
+            "問題ごとに答えモードに、もう一度聞く機能を追加",
+            "シャドーイング時のモールス併記ON/OFFを追加"
+        ]
+    },
+
+    {
+        version : "0.3.2",
+        date : "2026/06/20",
+        changes : [
+            "シャドーイング機能を追加"
+        ]
+    },
+
+    {
+        version : "0.3.2",
+        date : "2026/06/19",
+        changes : [
+            "数字（0-9）と記号の一部に対応",
+            "トップ画面にバージョンと日付を表示",
+            "GitHub Pages版を公開"
+        ]
+    },
+
+    {
+        version : "0.3.1",
+        date : "2026/06/18",
+        changes : [
+            "出題範囲指定機能を追加",
+            "モールス指定出題を追加",
+            "出題文字の重複設定を追加",
+            "設定画面のレイアウトを改善",
+            "スマホ表示を改善"
+        ]
+    },
+
+    {
+        version : "0.3.0",
+        date : "2026/06/17",
+        changes : [
+            "本番形式を実装",
+            "練習形式を実装",
+            "モールス発光・音声再生を実装",
+            "設定保存に対応",
+            "結果表示画面を実装"
+        ]
+    },
+
+    {
+        version : "0.2.0",
+        date : "2026/06/xx",
+        changes : [
+            "HTML/CSS/JavaScript版へ移行",
+            "レスポンシブ対応開始"
+        ]
+    },
+
+    {
+        version : "0.1.0",
+        date : "2026/06/xx",
+        changes : [
+            "和文モールス練習アプリ　初版作成"
+        ]
+    }
+
+];
 
 // ==================================================
 // グローバル変数
@@ -270,6 +343,49 @@ function showScreen(screenId){
         .style.display = "flex";
 }
 
+function openHistory(){
+
+    const area =
+        document.getElementById(
+            "changeLogArea"
+        );
+
+    let html = "";
+
+    CHANGE_LOG.forEach(log => {
+
+        html +=
+        `<div class="changeLogItem">
+
+            <div class="changeLogVersion">
+                ▼ Ver ${log.version}
+            </div>
+
+            <div class="changeLogDate">
+                ${log.date}
+            </div>
+
+            <ul>`;
+
+        log.changes.forEach(change => {
+
+            html +=
+                `<li>${change}</li>`;
+
+        });
+
+        html +=
+            `</ul>
+
+        </div>`;
+    });
+
+    area.innerHTML = html;
+
+    showScreen(
+        "historyScreen"
+    );
+}
 // ==================================================
 // 音と光
 // ==================================================
@@ -657,8 +773,43 @@ async function runQuestions(){
             return;
         }
 
-        if(SETTINGS.practiceMode === "answerEach"
+        if(
+            SETTINGS.practiceMode ===
+            "answerEach"
         ){
+
+            const replayButton =
+                document.getElementById(
+                    "replayQuestionButton"
+                );
+
+            replayButton.style.display =
+                "block";
+
+            replayButton.onclick = async () => {
+
+                if(!isRunning){
+
+                    return;
+                }
+
+                replayButton.disabled = true;
+
+                await playCharacter(char);
+
+                if(!isRunning){
+
+                    replayButton.style.display =
+                        "none";
+
+                    replayButton.disabled =
+                        false;
+
+                    return;
+                }
+
+                replayButton.disabled = false;
+            };
 
             await waitForButton("showOneAnswerButton");
 
@@ -669,6 +820,10 @@ async function runQuestions(){
            
             document
                 .getElementById("showOneAnswerButton")
+                .style.display = "none";
+
+            document
+                .getElementById("replayQuestionButton")
                 .style.display = "none";
 
             document
@@ -791,6 +946,10 @@ async function startPractice(){
 
     document
         .getElementById("showOneAnswerButton")
+        .style.display = "none";
+
+    document
+        .getElementById("replayQuestionButton")
         .style.display = "none";
 
     document
@@ -1077,9 +1236,29 @@ function openPracticeSettings(){
         .checked =
         SETTINGS.showShadowCode;
 
+    updatePracticeModeUI();
+
     showScreen(
         "practiceSettingScreen"
     );
+}
+
+function updatePracticeModeUI(){
+
+    const shadowCodeArea =
+        document.getElementById(
+            "shadowCodeArea"
+        );
+
+    const mode =
+        document.querySelector(
+            'input[name="practiceMode"]:checked'
+        )?.value;
+
+    shadowCodeArea.style.display =
+        mode === "shadowing"
+        ? "block"
+        : "none";
 }
 
 function savePracticeSettings(){
@@ -1542,6 +1721,19 @@ document
 
                 updateCharSelectModeUI();
             }
+        );
+
+    });
+
+document
+    .querySelectorAll(
+        'input[name="practiceMode"]'
+    )
+    .forEach(radio => {
+
+        radio.addEventListener(
+            "change",
+            updatePracticeModeUI
         );
 
     });
