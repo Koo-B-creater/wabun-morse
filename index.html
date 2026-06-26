@@ -29,13 +29,21 @@
 
         <div class="topArea">
 
+            <button
+                class="circleTopButton helpButton"
+                onclick="showScreen('helpScreen')">
+
+                ？
+
+            </button>
+
             <h1 class="screenTitle">
                 和文モールス練習
             </h1>
 
             <button
                 id="settingsButton"
-                class="gearButton">
+                class="circleTopButton gearButton">
                 ⚙
             </button>
 
@@ -54,6 +62,13 @@
                 onclick="showScreen('examScreen')">
 
                 本番形式
+
+            </button>
+
+            <button
+                onclick="openDictionary()">
+
+                モールス辞典
 
             </button>
 
@@ -92,7 +107,7 @@
             </h1>
 
             <button
-                class="gearButton"
+                class="circleTopButton gearButton"
                 onclick="openPracticeSettings()">
 
                 ⚙
@@ -295,7 +310,7 @@
             </h1>
 
             <button
-                class="gearButton"
+                class="circleTopButton gearButton"
                 onclick="openExamSettings()">
 
                 ⚙
@@ -656,6 +671,178 @@
 
     </div>
 
+    <div id="helpScreen"
+        class="screen"
+        style="display:none;">
+
+        <div class="topArea">
+
+            <button
+                class="topButton"
+                onclick="showScreen('topScreen')">
+
+                ← 戻る
+
+            </button>
+
+            <h1 class="screenTitle">
+                使い方
+            </h1>
+
+        </div>
+
+        <div class="centerArea settingsArea">
+
+            <div id="helpArea">
+
+                <details class="helpItem" open>
+
+                    <summary class="helpTitle">
+                        このアプリについて
+                    </summary>
+
+                    <ul>
+                        <li>和文モールスの受信練習用アプリです。</li>
+                        <li>練習形式と本番形式を選んで練習できます。</li>
+                        <li>問題数、出題範囲、速さ、音・光の出力を変更できます。</li>
+                    </ul>
+
+                </details>
+
+                <details class="helpItem">
+
+                    <summary class="helpTitle">
+                        練習形式
+                    </summary>
+
+                    <ul>
+                        <li>モールスを聞いて、最後に答えを確認できます。</li>
+                        <li>初心者の練習や反復練習に向いています。</li>
+                    </ul>
+
+                </details>
+
+                <details class="helpItem">
+
+                    <summary class="helpTitle">
+                        練習モード
+                    </summary>
+
+                    <h3>通常</h3>
+                    <ul>
+                        <li>出題されたモールスを順番に聞き、最後に答えを表示します。</li>
+                    </ul>
+
+                    <h3>問題ごとに答え</h3>
+                    <ul>
+                        <li>1問ごとに答えを確認できます。</li>
+                        <li>分からない時は「もう一度聞く」で同じモールスを再生できます。</li>
+                    </ul>
+
+                    <h3>シャドーイング</h3>
+                    <ul>
+                        <li>解答を見ながらモールスを覚える練習です。</li>
+                        <li>モールス符号の併記をON/OFFできます。</li>
+                    </ul>
+
+                </details>
+
+                <details class="helpItem">
+
+                    <summary class="helpTitle">
+                        本番形式
+                    </summary>
+
+                    <ul>
+                        <li>本番に近い形で、連続してモールスが出題されます。</li>
+                        <li>すべての出題が終わった後に解答が表示されます。</li>
+                    </ul>
+
+                </details>
+
+                <details class="helpItem">
+
+                    <summary class="helpTitle">
+                        設定
+                    </summary>
+
+                    <ul>
+                        <li>問題数、出題範囲、出題方式を変更できます。</li>
+                        <li>短音の長さや問題間隔を変更できます。</li>
+                        <li>光のみ、音のみ、光＋音を選択できます。</li>
+                    </ul>
+
+                </details>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="dictionaryScreen"
+        class="screen"
+        style="display:none;">
+
+        <div class="topArea">
+
+            <button
+                class="topButton"
+                onclick="showScreen('topScreen')">
+
+                ← 戻る
+
+            </button>
+
+            <h1 class="screenTitle">
+                モールス辞典
+            </h1>
+
+        </div>
+
+        <div class="centerArea settingsArea">
+
+            <div id="dictionaryArea"></div>
+
+        </div>
+
+    </div>
+
+    <div id="dictionaryOverlay"
+        style="display:none;">
+
+        <div id="dictionaryPopup">
+
+            <div id="dictionaryPopupChar"></div>
+
+            <div id="dictionaryPopupCode"></div>
+
+            <div id="dictionaryPopupShadow"></div>
+
+            <div id="dictionarySignal"></div>
+
+            <div class="dictionaryPopupButtons">
+
+                <button
+                    id="dictionaryPlayButton"
+                    onclick="playDictionaryChar()">
+
+                    再生
+
+                </button>
+
+                <button
+                    onclick="closeDictionaryPopup()">
+
+                    閉じる
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
     <script src="app.js"></script>
 
 </body>
