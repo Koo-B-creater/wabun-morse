@@ -238,6 +238,21 @@ button{
     z-index:10;
 }
 
+#historyButton{
+
+    position:absolute;
+
+    left:15px;
+
+    bottom:60px;
+
+    width:100px;
+
+    height:35px;
+
+    font-size:14px;
+}
+
 /* =========================
    画面タイトル
 ========================= */
@@ -420,6 +435,12 @@ button{
     overflow-y:auto;
 }
 
+#shadowCodeArea{
+
+    display:none;
+    margin:0;
+}
+
 #versionLabel{
 
     position:absolute;
@@ -503,7 +524,72 @@ button{
     text-align:center;
 
 }
+/*===================================
+    更新画面
+=====================================*/
+#changeLogArea{
 
+    width:90%;
+
+    max-width:600px;
+
+    font-size:18px;
+
+    line-height: 1.6;
+}
+#historyScreen .settingsArea{
+
+    transform:none;
+
+    justify-content:flex-start;
+}
+#historyScreen .centerArea{
+
+    justify-content:flex-start;
+
+    padding-top:30px;
+}
+
+.changeLogItem{
+
+    margin-bottom:20px;
+
+    padding:15px;
+
+    border:1px solid #555;
+
+    border-radius:10px;
+
+    text-align:left;
+}
+
+.changeLogVersion{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:yellow;
+}
+
+.changeLogDate{
+
+    color:#aaa;
+
+    margin-bottom:10px;
+}
+
+.changeLogItem ul{
+
+    margin:0;
+
+    padding-left:25px;
+}
+
+.changeLogItem li{
+
+    margin:6px 0;
+}
 /* =========================
    スマホ表示
 ========================= */
