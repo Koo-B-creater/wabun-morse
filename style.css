@@ -209,23 +209,17 @@ button{
     margin-top:-20px;
 }
 
-.gearButton{
+.circleTopButton{
 
     position:absolute;
 
     top:20px;
-
-    right:20px;
 
     width:50px;
 
     height:50px;
 
     padding:0;
-
-    font-size:32px;
-
-    line-height:1;
 
     border-radius:50%;
 
@@ -236,6 +230,22 @@ button{
     align-items:center;
 
     z-index:10;
+
+    line-height:1;
+}
+
+.gearButton{
+    right:20px;
+
+    font-size:32px;
+}
+
+.helpButton{
+    left:20px;
+
+    font-size:30px;
+
+    font-weight:bold;
 }
 
 #historyButton{
@@ -591,6 +601,302 @@ button{
     margin:6px 0;
 }
 /* =========================
+   使い方表示
+========================= */
+#helpArea{
+
+    width:90%;
+
+    max-width:600px;
+
+    margin:0 auto;
+
+    font-size:18px;
+
+    line-height:1.6;
+}
+
+.helpItem{
+
+    width:100%;
+
+    margin-bottom:20px;
+
+    padding:18px;
+
+    border:1px solid #555;
+
+    border-radius:10px;
+
+    text-align:left;
+}
+
+.helpTitle{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:yellow;
+
+    margin-bottom:10px;
+
+    cursor:pointer;
+}
+
+.helpItem ul{
+
+    margin:0;
+
+    padding-left:25px;
+}
+
+.helpItem li{
+
+    margin:6px 0;
+}
+
+.helpItem h3{
+
+    margin:15px 0 5px 0;
+
+    color:#ddd;
+}
+
+.helpItem[open] .helpTitle{
+
+    margin-bottom:15px;
+}
+
+.helpItem h3{
+
+    margin:15px 0 5px 0;
+
+    color:#ddd;
+}
+
+/* =========================
+   モールス辞典
+========================= */
+
+#dictionaryArea{
+
+    width:90%;
+
+    max-width:600px;
+}
+
+.dictionaryItem{
+
+    margin-bottom:20px;
+
+    padding:15px;
+
+    border:1px solid #555;
+
+    border-radius:10px;
+
+    text-align:left;
+
+    padding:20px;
+
+    background:#111;
+}
+
+.dictionaryTitle{
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:yellow;
+
+    cursor:pointer;
+}
+
+.dictionaryGroupTitle{
+
+    margin:15px 0 8px 0;
+
+    color:#ddd;
+}
+
+.dictionaryButtonGrid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:10px;
+
+    width:100%;
+}
+
+.dictionaryCharButton{
+
+    width:100%;
+
+    aspect-ratio:1 / 1;
+
+    padding:0;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    border-radius:10px;
+
+    transition:
+        background .15s,
+        transform .1s;
+}
+
+.dictionaryCharButton:hover{
+
+    background:#333;
+}
+
+.dictionaryCharButton:active{
+
+    background:yellow;
+
+    color:black;
+
+    transform:scale(.95);
+}
+
+.dictionaryGroupTitle{
+
+    margin:15px 0 8px 0;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    color:yellow;
+}
+
+#dictionaryOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,0.75);
+
+    z-index:2000;
+}
+
+#dictionaryPopup{
+
+    width:85vw;
+
+    max-width:360px;
+
+    box-sizing:border-box;
+
+    padding:25px;
+
+    border:1px solid #777;
+
+    border-radius:15px;
+
+    background:#050505;
+
+    color:white;
+
+    text-align:center;
+}
+
+#dictionaryPopupChar{
+
+    font-size:64px;
+
+    font-weight:bold;
+
+    color:yellow;
+}
+
+#dictionaryPopupCode{
+
+    margin-top:10px;
+
+    font-size:32px;
+
+    letter-spacing:4px;
+
+    white-space:nowrap;
+}
+
+#dictionaryPopupShadow{
+
+    margin:15px 0;
+
+    font-size:28px;
+
+    color:#9ff;
+}
+
+.dictionaryFinalChar{
+
+    color:#ff4040;
+
+    font-weight:bold;
+
+    font-size:1.2em;
+}
+
+.dictionaryPopupButtons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
+}
+
+.dictionaryPopupButtons button{
+
+    width:120px;
+
+    height:45px;
+
+    font-size:18px;
+}
+
+#dictionarySignal{
+
+    width:120px;
+
+    height:120px;
+
+    margin:20px auto;
+
+    border-radius:50%;
+
+    background:#444;
+}
+
+#dictionarySignal.on{
+
+    background:yellow;
+
+    box-shadow:
+        0 0 20px yellow,
+        0 0 40px yellow;
+}
+/* =========================
    スマホ表示
 ========================= */
 
@@ -615,4 +921,34 @@ button{
         width:80%;
     }
 
+    .helpTitle{
+
+        font-size:20px;
+        
+    }
+
+    #helpArea{
+
+        font-size:16px;
+    }
+
+    .dictionaryCharButton{
+
+        font-size:20px;
+    }
+
+    #dictionaryPopupChar{
+
+        font-size:56px;
+    }
+
+    #dictionaryPopupCode{
+
+        font-size:28px;
+    }
+
+    #dictionaryPopupShadow{
+
+        font-size:24px;
+    }
 }
