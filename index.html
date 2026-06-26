@@ -60,6 +60,14 @@
         </div>
         
         <div id="versionLabel"></div>
+        
+        <button
+            id="historyButton"
+            onclick="openHistory()">
+
+            更新履歴
+
+        </button>
 
     </div>
 
@@ -128,6 +136,14 @@
                     style="display:none;">
 
                     次へ
+
+                </button>
+
+                <button
+                    id="replayQuestionButton"
+                    style="display:none;">
+
+                    もう一度聞く
 
                 </button>
 
@@ -218,15 +234,17 @@
 
             </label>
 
-            <label>
+            <div id="shadowCodeArea">
+                <label>
 
-                <input
-                    id="showShadowCode"
-                    type="checkbox">
+                    <input
+                        id="showShadowCode"
+                        type="checkbox">
 
-                モールス併記
+                    モールス併記
 
-            </label>
+                </label>
+            </div>
 
         </div>
 
@@ -605,6 +623,34 @@
                 </button>
 
             </div>
+
+        </div>
+
+    </div>
+
+    <div id="historyScreen"
+        class="screen"
+        style="display:none;">
+
+        <div class="topArea">
+
+            <button
+                class="topButton"
+                onclick="showScreen('topScreen')">
+
+                ← 戻る
+
+            </button>
+
+            <h1 class="screenTitle">
+                更新履歴
+            </h1>
+
+        </div>
+
+        <div class="centerArea settingsArea">
+
+            <div id="changeLogArea"></div>
 
         </div>
 
